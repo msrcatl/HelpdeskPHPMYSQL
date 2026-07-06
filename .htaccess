@@ -1,0 +1,18 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# Set base directory
+RewriteBase /helpdesk/
+
+# Skip rewrite for existing files and directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route all requests to index.php
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Prevent direct access to sensitive folders
+<FilesMatch "\.(env|sql|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
